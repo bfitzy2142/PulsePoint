@@ -4,12 +4,11 @@ PalsePoint is a simple program designed to automatically control a Wi-Fi smart s
 
 ## Installation
 
-Note that this project only works on Windows and with a EdiMax smart switch. To install simply clone/download this repo. However if you do not have an EdiMax switch, do not be discouraged. Provided your smart plug has an open API, you should be able to write a module similar to lean_smartplug.py.
+Note that this project only works on Windows and with a EdiMax smart switch. To install simply clone/download this repo and make sure you have Python3 installed. However if you do not have an EdiMax switch, do not be discouraged. Provided your smart plug has an open API, you should be able to write a module similar to lean_smartplug.py.
 
 ## Usage
-
 ```bash
-python PalsePoint.py
+./PalsePoint.py
 ```
 
 ## License

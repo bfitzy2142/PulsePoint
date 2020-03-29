@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
     WiseFan is a simple program designed to turn on and off a wifi
     controlled switch based on the user specified switchpoint value.
