@@ -1,12 +1,5 @@
 #!/usr/bin/env python3
 """
-    WiseFan is a simple program designed to turn on and off a wifi
-    controlled switch based on the user specified switchpoint value.
-    This program will allow you to compete your workout completely
-    hands free. Need to take a break, but don't want to get off
-    the trainer to turn off the fan? No problem, your fan will turn
-    off once your heart rate comes back down.
-
     In order to get the HR value, I made use of another project on
     GitHub which can be found here at
     this URL: https://github.com/jlennox/HeartRate
