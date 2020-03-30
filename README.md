@@ -1,6 +1,6 @@
 # PalsePoint
 
-PalsePoint is a simple program designed to automatically control a Wi-Fi smart switch based on the user specified switchpoint heartrate value. The idea is that this would allow you to connect any fan you have to this switch and effectively now have a smart fan such as that of the Kickr Headwind. This program will allow you to finish your workout completely hands free. Need to take a break, but don't want to get off the trainer to turn off the fan? Or must head to the bathroom quickly? No problem, your fan will only turn on when it is needed.
+PalsePoint is a simple program designed to automatically control a Wi-Fi smart switch based on the user's heart rate. Once the user's heart rate hits the tipping point (switchpoint), the switch turns on. The idea is that this would allow you to connect any fan you have to this switch and effectively now have a simple smart fan similar to the Wahoo Kickr Headwind. This program will allow you to finish your workout completely hands free. Need to take a break, but don't want to get off the trainer to turn off the fan? Or must head to the bathroom quickly? No problem, your fan will only turn on when it is needed.
 
 ## Installation
 
