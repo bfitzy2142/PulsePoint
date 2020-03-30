@@ -77,8 +77,9 @@ def get_hr():
         read_csv = csv.reader(hrcsv, delimiter=',')
         csv_list = list(read_csv)
 
-        if (csv_list is None):
-            get_hr()
+        if (csv_list == []):
+            # Recurive call in case the file was just emptied.
+            return get_hr()
         else:
             top_row = csv_list[len(csv_list)-1]
             hr = int(top_row[1])
@@ -121,7 +122,7 @@ def run(switchpoint, ip, user_pass):
         hr = get_hr()
 
         # HR Program Hasn't logged any data yet
-        if (hr == 0):
+        if (hr == 0 or hr is None):
             print("Can't get HR Data")
 
         else:
