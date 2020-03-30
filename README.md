@@ -6,6 +6,9 @@ A simple program designed to automatically control a Wi-Fi smart switch based on
 
 Note that this project only works on Windows and with an EdiMax smart switch. To install simply clone/download this repo and make sure you have Python3 installed. However, if you do not have an EdiMax switch, do not be discouraged. Provided your smart plug has an open API, you should be able to write a module like lean_smartplug.py.
 
+Link to type of Smart Plug I have:
+https://www.edimax.com/edimax/merchandise/merchandise_detail/data/edimax/au/home_automation_smart_plug/sp-1101w/
+
 ## Usage
 ```bash
 python PulsePoint.py
