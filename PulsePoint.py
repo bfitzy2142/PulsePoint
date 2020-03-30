@@ -204,7 +204,7 @@ def main():
     # Edit HR config file so HR logging starts
     write_config()
 
-    print('Welcome to PalsePoint!')
+    print('Welcome to PulsePoint')
     print('Make sure your HRM is connected to bluetooth!')
 
     # Parse HR and determine switch status, runs until user quits the program
