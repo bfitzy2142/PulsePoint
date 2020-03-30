@@ -68,7 +68,7 @@ def get_log_file():
     returns: 
         str - heartrate.csv file location
     """
-    return f"{os.getcwd()}/log/heartrate.csv"
+    return f"{os.getcwd()}\log\heartrate.csv"
 
 
 def get_hr():
