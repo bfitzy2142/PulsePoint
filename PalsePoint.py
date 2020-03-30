@@ -6,12 +6,12 @@
 
     Specaial Thanks to jlennox with his amazing program written
     in C++ allowing me to quickly make
-    this project to fruition. Check out his project if you would like to 
-    learn bluetooth interaction in C++. 
+    this project to fruition. Check out his project if you would like to
+    learn bluetooth interaction in C++.
 
-    Interactions with the Wifi switch also make use of another exisiting 
+    Interactions with the Wifi switch also make use of another exisiting
     project called smartplug written by: Stefan Wendler
-    
+
     Please note that this project assumes the use of a EDIMAX Smart Plug
     Switch of model type SP1101W or SP2101W. If you would like to use your
     own, you will need to determine if API is open to write code for, or if
@@ -30,19 +30,20 @@ from lean_smartplug import SmartPlug
 import os
 import threading
 
+
 def write_config():
     """
-        Write_config modifies the setting.xml file used by the HR program. 
-        By default the HR program is set up without logging functionality, 
+        Write_config modifies the setting.xml file used by the HR program.
+        By default the HR program is set up without logging functionality,
         so this function enables it along with disabling some annoying alerts.
     """
     homepath = os.environ["HOMEPATH"]
-    #Set log location
+    # Set log location
     settings_path = f'{homepath}/AppData/Roaming/HeartRate/settings.xml'
 
     tree = ET.parse(settings_path)
     root = tree.getroot()
-    
+
     for child in root:
         if (child.tag == 'AlertLevel'):
             child.text = '0'
@@ -52,13 +53,13 @@ def write_config():
             child.text = get_log_file()
 
     tree.write(settings_path)
-    
+
 
 def get_log_file():
     """
     get_log_file finds the location of the log file of which HR data is logged
 
-    returns: 
+    returns:
         str - heartrate.csv file location
     """
     return f"{os.getcwd()}\log\heartrate.csv"
@@ -73,7 +74,7 @@ def get_hr():
         hr {int} - latest HR entry in the heartrate.csv
     """
     with open(get_log_file()) as hrcsv:
-        read_csv = csv.reader(hrcsv, delimiter=',') 
+        read_csv = csv.reader(hrcsv, delimiter=',')
         csv_list = list(read_csv)
 
         if (csv_list is None):
@@ -83,7 +84,11 @@ def get_hr():
             hr = int(top_row[1])
     return hr
 
-def run_hr_fetecher():
+
+def run_hr_fetcher():
+    """
+    Runs the C++ HR program
+    """
     directory = os.getcwd()
     os.system(f'{directory}/HRM_Logger/HeartRate.exe')
 
@@ -94,6 +99,7 @@ def print_banner():
     """
     print('-----------------------')
 
+
 def run(switchpoint, ip, user_pass):
     """
     run is the primary method used which continuely scrapes HR data from the
@@ -103,11 +109,10 @@ def run(switchpoint, ip, user_pass):
     type of Wi-Fi smart plug.
 
     Attributes:
-        switchpoint {int} - the tipping hr value of which determines if the switch
-                            should be on or off
+        switchpoint {int} - the tipping hr value of which determines if the
+                            switch should be on or off
         ip {str} - the IP address of the smart switch
-        user_pass {tupple} - (username, password) for the wifi switch. By default
-                             my model uses "admin", "1234" as credentials
+        user_pass {tupple} - (username, password) for the wifi switch.
     """
     p = SmartPlug(ip, user_pass)
     time_running = 0
@@ -129,10 +134,10 @@ def run(switchpoint, ip, user_pass):
             elif (hr < switchpoint and p.state == "ON"):
                 p.state = "OFF"
                 print_banner()
-                
+
                 print('Turning off FAN!')
                 print_banner()
-            
+
             time_running += 1
 
             # Display stats at 5 sec intervals
@@ -144,10 +149,11 @@ def run(switchpoint, ip, user_pass):
 
             # Clear the log file to prevent it from gowing too large
             if (time_running == 300):
-                with open(get_log_file(), 'w'): pass
+                with open(get_log_file(), 'w'):
+                    pass
                 time_running = 0
                 sleep(4)
-        
+
         sleep(1)
 
 
@@ -169,22 +175,22 @@ def main():
 
     # Heart Rate Tipping Point (where switch turns on)
     switchpoint = 100
-    
-    #Run C++ pogram as a daemon thread
-    heart_rate = threading.Thread(target=run_hr_fetecher, daemon=True)
+
+    # Run C++ pogram as a daemon thread
+    heart_rate = threading.Thread(target=run_hr_fetcher, daemon=True)
     heart_rate.start()
 
     print('Welcome to PalsePoint!')
     print('Make sure your HRM is connected to bluetooth!')
-    
-    #Allowing HeartRate program time to start
+
+    # Allowing HeartRate program time to start
     sleep(5)
 
     # Edit HR config file so HR logging starts
     write_config()
 
-    #Parse HR and determine switch status, runs until user quits the program
-    run(switchpoint, ip, (user,passw))
+    # Parse HR and determine switch status, runs until user quits the program
+    run(switchpoint, ip, (user, passw))
 
 
 if __name__ == "__main__":
