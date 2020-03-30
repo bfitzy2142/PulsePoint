@@ -4,12 +4,12 @@
     GitHub which can be found here at
     this URL: https://github.com/jlennox/HeartRate
 
-    Specaial Thanks to jlennox with his amazing program written
+    Special Thanks to jlennox with his amazing program written
     in C++ allowing me to quickly make
     this project to fruition. Check out his project if you would like to
     learn bluetooth interaction in C++.
 
-    Interactions with the Wifi switch also make use of another exisiting
+    Interactions with the Wifi switch also make use of another existing
     project called smartplug written by: Stefan Wendler
 
     Please note that this project assumes the use of a EDIMAX Smart Plug
@@ -34,7 +34,7 @@ import threading
 def write_config():
     """
         Write_config modifies the setting.xml file used by the HR program.
-        By default the HR program is set up without logging functionality,
+        By default, the HR program is set up without logging functionality,
         so this function enables it along with disabling some annoying alerts.
     """
     homepath = os.environ["HOMEPATH"]
@@ -78,7 +78,7 @@ def get_hr():
         csv_list = list(read_csv)
 
         if (csv_list == []):
-            # Recurive call in case the file was just emptied.
+            # Recursive call in case the file was just emptied.
             return get_hr()
         else:
             top_row = csv_list[len(csv_list)-1]
@@ -111,7 +111,7 @@ def clear_log():
 
 def run(switchpoint, ip, user_pass):
     """
-    run is the primary method used which continuely scrapes HR data from the
+    run is the primary method used which continually scrapes HR data from the
     latest entries in the heartrate.csv file. This function contains the logic
     to determine if the Wi-Fi switch should be on or off. Note that this is the
     function to modify if you wish to integrate this project with a different
@@ -156,7 +156,7 @@ def run(switchpoint, ip, user_pass):
                 print(f'Heart Rate:{hr} bpm')
                 print_banner()
 
-            # Clear the log file to prevent it from gowing too large
+            # Clear the log file to prevent it from growing too large
             if (time_running == 300):
                 clear_log()
                 time_running = 0
@@ -176,7 +176,7 @@ def main():
         switchpoint (optional)
     """
 
-    # Wi-Fi switch creditentals
+    # Wi-Fi switch creds
     ip = '192.168.0.21'
     user = 'admin'
     passw = '1234'
@@ -197,7 +197,7 @@ def main():
         sleep(5)
         first_run._running = False
 
-    # Run C++ pogram as a daemon thread
+    # Run C++ program as a daemon thread
     heart_rate = threading.Thread(target=run_hr_fetcher, daemon=True)
     heart_rate.start()
 
