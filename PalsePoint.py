@@ -177,6 +177,16 @@ def main():
     # Heart Rate Tipping Point (where switch turns on)
     switchpoint = 100
 
+    # If first run, need to run program and close to create settings file
+    homepath = os.environ["HOMEPATH"]
+    settings_path = f'{homepath}/AppData/Roaming/HeartRate/settings.xml'
+
+    if (os.path.isfile(settings_path) == False):
+        first_run = threading.Thread(target=run_hr_fetcher, daemon=True)
+        first_run.start()
+        sleep(5)
+        first_run._running = False
+
     # Run C++ pogram as a daemon thread
     heart_rate = threading.Thread(target=run_hr_fetcher, daemon=True)
     heart_rate.start()
