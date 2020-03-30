@@ -101,6 +101,14 @@ def print_banner():
     print('-----------------------')
 
 
+def clear_log():
+    """
+    Clear CSV file
+    """
+    with open(get_log_file(), 'w'):
+        pass
+
+
 def run(switchpoint, ip, user_pass):
     """
     run is the primary method used which continuely scrapes HR data from the
@@ -150,8 +158,7 @@ def run(switchpoint, ip, user_pass):
 
             # Clear the log file to prevent it from gowing too large
             if (time_running == 300):
-                with open(get_log_file(), 'w'):
-                    pass
+                clear_log()
                 time_running = 0
                 sleep(4)
 
@@ -177,11 +184,14 @@ def main():
     # Heart Rate Tipping Point (where switch turns on)
     switchpoint = 100
 
+    # Clear CSV from previous entries
+    clear_log()
+
     # If first run, need to run program and close to create settings file
     homepath = os.environ["HOMEPATH"]
     settings_path = f'{homepath}/AppData/Roaming/HeartRate/settings.xml'
 
-    if (os.path.isfile(settings_path) == False):
+    if (os.path.isfile(settings_path) is False):
         first_run = threading.Thread(target=run_hr_fetcher, daemon=True)
         first_run.start()
         sleep(5)
@@ -191,14 +201,11 @@ def main():
     heart_rate = threading.Thread(target=run_hr_fetcher, daemon=True)
     heart_rate.start()
 
-    print('Welcome to PalsePoint!')
-    print('Make sure your HRM is connected to bluetooth!')
-
-    # Allowing HeartRate program time to start
-    sleep(5)
-
     # Edit HR config file so HR logging starts
     write_config()
+
+    print('Welcome to PalsePoint!')
+    print('Make sure your HRM is connected to bluetooth!')
 
     # Parse HR and determine switch status, runs until user quits the program
     run(switchpoint, ip, (user, passw))
