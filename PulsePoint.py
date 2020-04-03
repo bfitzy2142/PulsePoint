@@ -79,7 +79,7 @@ def get_hr():
 
         if (csv_list == []):
             # Recursive call in case the file was just emptied.
-            return get_hr()
+            return
         else:
             top_row = csv_list[len(csv_list)-1]
             hr = int(top_row[1])
